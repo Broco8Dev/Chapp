@@ -10,20 +10,33 @@
 </head>
 <body>
     <header>
-        <h1>Home</h1>
+        <h1>Settings</h1>
     </header>
+    <style>
+        #imageInput {
+          display: none;
+        }
+      </style>
     <style>
       body {
         overflow: scroll;
       }
     </style>
-    
-    <section id="featured">
-        <h1 class="sectionHeader">Latest Posts</h1>
+    <section id="featured" class="settingsection">
+        <h1 class="sectionHeader">All Settings</h1>
         <div class="divider-swiftui"></div>
-        <div id="messages"></div>
-        <div id="imageInput"></div>
+        <div class="usernamefield">
+            <input type="text" id="usernameInput" placeholder="Change Username (Default = 'Anonymous')" oninput="changeUsername()">
+        </div>
+        <div class="divider-swiftui"></div>
+        <!-- <h4 class="pfpfield">Change Profile Picture</h4> -->
+        <label for="imageInput" class="pfpfield">Select a Profile Picture</label>
+<input type="file" id="imageInput" accept="image/*">
+        <div class="divider-swiftui"></div>
     </section>
     <script src="handler.js"></script>
+    <script>
+        fillUsername();
+    </script>
 </body>
 </html>

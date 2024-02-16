@@ -28,17 +28,24 @@
 </head>
 <body>
     <canvas id="gradient-canvas"></canvas>
-    <div class="field">
-      <input type="text" id="messageInput" placeholder="Type your message...">
-      <button id="sendMessageButton" onclick="postMessage();">Send</button>
-    </div>
-    <div class="usernamefield">
-        <input type="text" id="usernameInput" placeholder="Choose Username (Default = 'Anonymous')">
 
-    </div>
-    <iframe id="myIFrame" src="home.html"></iframe>
+    <div class="navbar">
+        <div class="field">
+            <input type="text" id="messageInput" placeholder="Send Message">
+            <img class="field-button" src="https://img.icons8.com/ios-glyphs/30/FFFFFF/paper-plane.png" id="sendMessageButton" onclick="postMessage();"></img>
+          </div>
+        <div class="vstack">
+          <img class="selected-navbar-image" onClick="switchPage('home.html', this)" width="90" height="90" src="https://img.icons8.com/ios-glyphs/90/FFFFFF/home-page--v1.png" alt="home-page--v1" />
+          <!-- <h1 class="navbar-title">Home</h1> -->
+        </div>
+        <div class="vstack">
+          <img class="navbar-image" onClick="switchPage('settings.html', this)" width="90" height="90" src="https://img.icons8.com/ios-glyphs/90/FFFFFF/settings--v1.png" alt="compass--v1" />
+          <!-- <h1 class="navbar-title">Explore</h1> -->
+        </div>
+      </div>
+    <iframe id="myIFrame" src="/home.html"></iframe>
     <script src="background.js"></script>
     <script src="handler.js"></script>
-
+    
 </body>
 </html>

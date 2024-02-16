@@ -101,15 +101,18 @@ nav a {
 }
 
 section {
-    margin: 20px;
-    padding: 20px;
-    padding-bottom: 6px;
-    padding-top: 6px;
-    background-color: #85858525;
-    border-radius: 25px;
-    box-shadow: 0px 5px 15px #00000027;
-    overflow: hidden;
+  margin: 20px;
+  padding: 20px;
+  padding-bottom: 6px;
+  padding-top: 6px;
+  background-color: #85858525;
+  border-radius: 35px;
+  box-shadow: 0px 5px 15px #00000027;
+  overflow: scroll;
+  height: 70vh;
+  outline: 1.3px solid rgba(255, 255, 255, 0.082);
 }
+
 
 h2 {
     color: #ffffff;
@@ -188,7 +191,6 @@ th, td {
 
   .navbar {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     position: fixed;
     background-color: #85858525;
@@ -199,33 +201,36 @@ th, td {
     width: calc(100% - 40px);
     padding: 20px;
     width: 83.5%;
-    height: 5%;
+    height: 4%;
     bottom: 25px;
     left: 50%;
     transform: translateX(-50%);
-    border-radius: 25px;
-    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.281);
+    border-radius: 28px;
+}
+
+
+
+.setting {
+  background-color: #85858525;
+  padding: 10px;
+  border-radius: 9px;
 }
 
 .field {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
-  background-color: #85858525;
   color: #ffffff;
   backdrop-filter: blur(20px);
   outline: 1.3px solid rgba(255, 255, 255, 0.082);
   font-weight: 300;
   width: calc(100% - 40px);
   padding: 20px;
-  width: 81.5%;
-  height: 3%;
-  bottom: 50px;
-  left: 50%;
-  transform: translateX(-50%);
+  width: 63.3%;
+  height: 1%;
+  bottom: 95px;
+
   border-radius: 25px;
-  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.281);
 }
 
 .field input {
@@ -233,28 +238,26 @@ th, td {
   width: 75%;
   background: transparent;
   color: #ffffff;
-  font-size: 16px; /* Adjust the font size as needed */
-  padding: 10px; /* Adjust the padding as needed */
+  font-size: 16px;
+  padding: 10px;
 
 }
 
-.field button {
+.field-button {
   border: none;
   color: white;
-  padding: 10px 15px;
-  border-radius: 10px;
+  padding: 4px 4px;
+  width: 15px;
+  transform: translate(10px);
   cursor: pointer;
   background-color: rgba(201, 180, 180, 0.233);
-  border-radius: 12px;
-  outline: 1.3px solid rgba(255, 255, 255, 0.527);
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.281);
+  border-radius: 10px;
 }
 
 .usernamefield {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
   background-color: #85858525;
   color: #ffffff;
   backdrop-filter: blur(20px);
@@ -262,13 +265,70 @@ th, td {
   font-weight: 300;
   width: calc(100% - 40px);
   padding: 20px;
-  width: 81.5%;
   height: 0.5%;
-  bottom: 130px;
+  border-radius: 13px;
+}
+
+.settingsection {
+  height: 300px;
+}
+
+.close-button {
+  height: 30px;
+  display: flex;
+  position: fixed;
+  right: 40px;
+  top: 31px;
+  align-items: center;
+  border-radius: 9px;
+  font-family: "Nunito";
+  background-color: rgba(201, 180, 180, 0.233);
+  outline: 1.3px solid rgba(255, 255, 255, 0.527);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+
+}
+
+
+.pfpfield {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #85858525;
+  color: #ffffff;
+  backdrop-filter: blur(20px);
+  outline: 1.3px solid rgba(255, 255, 255, 0.082);
+  font-weight: 300;
+  width: calc(100% - 40px);
+  padding: 20px;
+  height: 0.5%;
   left: 50%;
-  transform: translateX(-50%);
+  border-radius: 13px;
+  color: #858585;
+  font-weight: 300;
+  cursor:pointer;
+}
+
+.profile-picture {
   border-radius: 18px;
-  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.281);
+  width: 40px;
+  height: 40px;
+  margin-left: 10px;
+}
+
+.posts {
+  border-radius: 15px;
+}
+
+.message-container {
+  display: flex;
+  align-items: center;
+  background-color: #85858525;
+  border-radius: 20px;
+  outline: 1.3px solid rgba(255, 255, 255, 0.082);
+  gap: 10px;
+  margin-bottom: 15px;
 }
 
 .usernamefield input {
@@ -276,8 +336,8 @@ th, td {
   width: 95%;
   background: transparent;
   color: #ffffff;
-  font-size: 16px; /* Adjust the font size as needed */
-  padding: 10px; /* Adjust the padding as needed */
+  font-size: 16px;
+  padding: 10px;
 
 }
 
@@ -304,16 +364,13 @@ th, td {
   
 
    .selected-navbar-image {
+    align-items: center;
     width: auto;
     height: 35px;
-    margin-top: 10px;
-    margin-right: auto;
-    margin-left: auto;
-    background-color: rgba(201, 180, 180, 0.233);
+    background-color: rgba(136, 136, 136, 0.192);
     padding: 4px;
-    border-radius: 12px;
-    outline: 1.3px solid rgba(255, 255, 255, 0.527);
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.281);
+    border-radius: 18px;
+    outline: 1.3px solid rgba(240, 240, 240, 0.164);
     transition: transform 0.5s ease;
     animation: fadeIn 0.5s ease-in-out;
   }
@@ -333,13 +390,10 @@ th, td {
   
   
   .navbar-image {
+    align-items: center;
     width: auto;
     height: 35px;
-    margin-top: 10px;
-    margin-right: auto;
-    margin-left: auto;
     transition: transform 0.5s ease;
-    -webkit-filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.397));
 
   }
 
