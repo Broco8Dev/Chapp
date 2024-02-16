@@ -1,9 +1,10 @@
 let username = "";
 
+let baseURL = "https://brocodev.pythonanywhere.com/"
+
 function fetchMessages() {
   Promise.all([
-    fetch('http://localhost:5000/messages'),
-    fetch('http://localhost:5000/usernames')
+    fetch(baseURL + "messages"),
   ]).then(([responseMessages]) => {
     return Promise.all([
       responseMessages.json(),
@@ -54,7 +55,7 @@ function postMessage() {
 
   messageInput.value = "";
 
-  fetch('http://localhost:5000/messages', {
+  fetch(baseURL + "messages", {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -67,20 +68,6 @@ function postMessage() {
       console.log('Error posting message');
     }
   });
-
-  fetch('http://localhost:5000/usernames', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ username })
-    }).then(response => {
-      if (response.ok) {
-        console.log('Message posted successfully');
-      } else {
-        console.log('Error posting message');
-      }
-    });
 }
 
 const intervalId = setInterval(fetchMessages,  300);
