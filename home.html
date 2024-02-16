@@ -26,8 +26,8 @@
     <script>
       function fetchMessages() {
         Promise.all([
-          fetch('http://localhost:5000/messages'),
-          fetch('http://localhost:5000/usernames')
+          fetch('http://BrocoDev.pythonanywhere.com/messages'),
+          fetch('http://BrocoDev.pythonanywhere.com/usernames')
         ]).then(([responseMessages, responseUsernames]) => {
           return Promise.all([
             responseMessages.json(),
