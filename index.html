@@ -36,68 +36,9 @@
         <input type="text" id="usernameInput" placeholder="Choose Username (Default = 'Anonymous')">
 
     </div>
-    <iframe id="myIFrame" src="home.html"></iframe>
+    <iframe id="myIFrame" src="/home.html"></iframe>
     <script src="background.js"></script>
-    <script>
-        function postMessage() {
-            var messageInput = document.getElementById('messageInput'); 
-            var message = messageInput.value;
-
-            var usernameInput = document.getElementById('usernameInput'); 
-            var username = usernameInput.value;
-
-            if(username == "") {
-                username = "Anonymous"
-            }
-
-            var currentDate = new Date();
-
-            var formattedTime = currentDate.toLocaleTimeString('en-US', {
-              hour: 'numeric',
-              minute: 'numeric',
-              hour12: false
-            });
-            
-            var formattedDate = currentDate.toLocaleDateString('en-US', {
-            day: 'numeric',
-            month: 'numeric',
-            year: '2-digit'
-            });
-
-            username = username + " @" + formattedTime + " " + formattedDate;
-
-            messageInput.value = "";
-
-            fetch('https://BrocoDev.pythonanywhere.com/messages', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({ message })
-            }).then(response => {
-              if (response.ok) {
-                console.log('Message posted successfully');
-              } else {
-                console.log('Error posting message');
-              }
-            });
-
-            fetch('https://BrocoDev.pythonanywhere.com/usernames', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username })
-              }).then(response => {
-                if (response.ok) {
-                  console.log('Message posted successfully');
-                } else {
-                  console.log('Error posting message');
-                }
-              });
-          }
-  
-    </script>
+    <script src="handler.js"></script>
 
 </body>
 </html>

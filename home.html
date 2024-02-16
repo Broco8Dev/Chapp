@@ -23,31 +23,6 @@
         <div class="divider-swiftui"></div>
         <div id="messages"></div>
     </section>
-    <script>
-      function fetchMessages() {
-        Promise.all([
-          fetch('https://BrocoDev.pythonanywhere.com/messages'),
-          fetch('https://BrocoDev.pythonanywhere.com/usernames')
-        ]).then(([responseMessages, responseUsernames]) => {
-          return Promise.all([
-            responseMessages.json(),
-            responseUsernames.json()
-          ]);
-        }).then(([messages, usernames]) => {
-          const messagesDiv = document.getElementById('messages');
-          messagesDiv.innerHTML = '';
-      
-          messages.forEach((message, index) => {
-            const combinedText = `${usernames[index]} : ${message}`;
-            const messageElement = document.createElement('p');
-            messageElement.textContent = combinedText;
-            messagesDiv.appendChild(messageElement);
-          });
-        });
-      }
-      
-      const intervalId = setInterval(fetchMessages,  300);
-      
-    </script>
+    <script src="handler.js"></script>
 </body>
 </html>
