@@ -68,7 +68,7 @@
 
             messageInput.value = "";
 
-            fetch('http://localhost:5000/messages', {
+            fetch('http://BrocoDev.pythonanywhere.com/messages', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
@@ -82,7 +82,7 @@
               }
             });
 
-            fetch('http://localhost:5000/usernames', {
+            fetch('http://BrocoDev.pythonanywhere.com/usernames', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json'
