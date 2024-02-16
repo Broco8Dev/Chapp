@@ -68,7 +68,7 @@
 
             messageInput.value = "";
 
-            fetch('http://BrocoDev.pythonanywhere.com/messages', {
+            fetch('https://BrocoDev.pythonanywhere.com/messages', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
@@ -82,7 +82,7 @@
               }
             });
 
-            fetch('http://BrocoDev.pythonanywhere.com/usernames', {
+            fetch('https://BrocoDev.pythonanywhere.com/usernames', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json'
