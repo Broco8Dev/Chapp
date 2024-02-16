@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Chat</h1>
+    </header>
+    <style>
+      body {
+        margin-bottom: 300px;
+        overflow: scroll;
+      }
+    </style>
+    <section id="featured">
+        <h1 class="sectionHeader">Messages</h1>
+        <div class="divider-swiftui"></div>
+        <div id="messages"></div>
+    </section>
+    <script>
+      function fetchMessages() {
+        Promise.all([
+          fetch('http://localhost:5000/messages'),
+          fetch('http://localhost:5000/usernames')
+        ]).then(([responseMessages, responseUsernames]) => {
+          return Promise.all([
+            responseMessages.json(),
+            responseUsernames.json()
+          ]);
+        }).then(([messages, usernames]) => {
+          const messagesDiv = document.getElementById('messages');
+          messagesDiv.innerHTML = '';
+      
+          messages.forEach((message, index) => {
+            const combinedText = `${usernames[index]} : ${message}`;
+            const messageElement = document.createElement('p');
+            messageElement.textContent = combinedText;
+            messagesDiv.appendChild(messageElement);
+          });
+        });
+      }
+      
+      const intervalId = setInterval(fetchMessages,  300);
+      
+    </script>
+</body>
+</html>
