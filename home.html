@@ -17,14 +17,7 @@
     <style>
       body {
         overflow: scroll;
-        margin-bottom: 90px;
       }
-
-      @media only screen and (max-width: 600px) {
-        body {
-            margin-bottom: 300px; /* Bottom margin for phones */
-        }
-    }
     </style>
     
     
@@ -62,8 +55,28 @@
       }
 
       scrollToBottom.hasBeenExecuted = false;
-      
-    window.onload = scrollToBottom;
+
+      function setBottomMargin() {
+        const isPhone = window.innerWidth <= 600;
+        const body = document.body;
+
+        if (isPhone) {
+            body.style.marginBottom = "300px";
+        } else {
+            body.style.marginBottom = "90px";
+        }
+    }
+
+    function allStarting() {
+      setBottomMargin();
+      scrollToBottom();
+    }
+    window.onload = allStarting;
+    window.onresize = setBottomMargin;
+
+    </script>
+    <script>
+
     </script>
 </body>
 </html>
