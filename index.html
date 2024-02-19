@@ -42,9 +42,17 @@
           <!-- <h1 class="navbar-title">Explore</h1> -->
         </div>
       </div>
-    <iframe id="myIFrame" src="home.html"></iframe>
+    <iframe id="myIFrame" src="/home.html"></iframe>
     <script src="background.js"></script>
     <script src="handler.js"></script>
+    <script>
+      const textInput = document.getElementById('messageInput');
+      textInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          postMessage();
+        }
+      });
+    </script>
     
 </body>
 </html>
