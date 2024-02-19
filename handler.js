@@ -2,6 +2,9 @@ let username = localStorage.getItem('username') || 'Anonymous';
 
 let baseURL = "https://brocodev.pythonanywhere.com/"
 
+var messageLength;
+var previousMessageLength;
+
 async function fetchMessages() {
   try {
     const [responseMessages, responseImages] = await Promise.all([
@@ -16,31 +19,68 @@ async function fetchMessages() {
 
     const messagesDiv = document.getElementById('messages');
     messagesDiv.innerHTML = '';
+    messageLength = messages.length;
 
-    for (let i = messages.length - 1; i >= 0; i--) {
-      const message = messages[i];
+    for (let i = 0; i < messageLength; i++) {
+    const message = messages[i]
 
-      // Create a container div for each message
-      const containerDiv = document.createElement('div');
-      containerDiv.classList.add('message-container');
+    const containerDiv = document.createElement('div');
+    containerDiv.classList.add('message-container');
 
-      const messageElement = document.createElement('p');
-      messageElement.classList.add('posts');
-      messageElement.textContent = message;
+    const messageElement = document.createElement('p');
+    messageElement.classList.add('posts');
 
-      const imgElement = document.createElement('img');
-      imgElement.classList.add('profile-picture');
-      imgElement.src = images[i] || 'default-profile-image.png';
+    const parts = message.split('\n');
+    let textOne = parts[0].split('timestamp_split')[0];
+    let textTwo = `<span style="font-weight: lighter; font-size: 15px;">${parts.slice(1).join('\n')}</span>`;
+    let textPart = parts[0].split('timestamp_split')[1];
+    let text = textOne + " " + `<span style="font-weight: semibold; font-size: 10px; opacity: 0.7;">` + textPart + `</span>` + "\n" + textTwo;
+    messageElement.innerHTML = text;
 
+    const imgElement = document.createElement('img');
+    imgElement.classList.add('profile-picture');
+    imgElement.src = images[i] || 'default-profile-image.png';
 
-      containerDiv.appendChild(imgElement);
-      containerDiv.appendChild(messageElement);
+    containerDiv.appendChild(imgElement);
+    containerDiv.appendChild(messageElement);
 
-      messagesDiv.appendChild(containerDiv);
+    messagesDiv.appendChild(containerDiv);
+
+    if (previousMessageLength != messageLength) {
+        previousMessageLength = messageLength;
+        scrollDown.hasBeenExecuted = false;
+        scrollDown();
     }
+}
+
   } catch (error) {
     console.error('Error fetching messages:', error);
   }
+}
+
+function scrollDown() {
+  if (scrollDown.hasBeenExecuted) {
+    return;
+  }
+
+  const scrollingElement = document.getElementById("messages");
+
+  const config = { childList: true };
+
+  const callback = function (mutationsList, observer) {
+    for (let mutation of mutationsList) {
+      if (mutation.type === "childList") {
+        window.scrollBy(0, 4);
+      }
+    }
+
+    scrollDown.hasBeenExecuted = true;
+
+    observer.disconnect();
+  };
+
+  const observer = new MutationObserver(callback);
+  observer.observe(scrollingElement, config);
 }
 
 
@@ -84,15 +124,14 @@ function postMessage() {
   year: '2-digit'
   });
 
-  newUsername = username + " @" + formattedTime + " " + formattedDate;
+  newUsername = username + "timestamp_split" + formattedTime + " " + formattedDate;
 
   
-  message = newUsername + " : " + message 
+  message = newUsername + "\n" + message 
 
   messageInput.value = "";
 
-
-  const profilePicture = localStorage.getItem('resizedProfilePicture') || 'no';
+  const profilePicture = localStorage.getItem('resizedProfilePicture') || '/9j/4AAQSkZJRgABAQACWAJYAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/2wBDAQMDAwQDBAgEBAgQCwkLEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/wAARCAAyADIDASIAAhEBAxEB/8QAGwABAAIDAQEAAAAAAAAAAAAAAAUIAwYHBAH/xAAyEAABAwQBAgMECgMAAAAAAAABAAIDBAUGEQchMRJBUQgUQnETFSIyVWJygZGzI2Gh/8QAGAEBAQEBAQAAAAAAAAAAAAAAAgADAQT/xAAaEQEBAAMBAQAAAAAAAAAAAAAAAQIRMSES/9oADAMBAAIRAxEAPwC+qIi9DIRQmV5pjGEUDbjk93ioopCWxNILpJXDuGMbtzv2Gh5qLw/lrAs6qnUGPXsOrGtLhTVEToZXNHctDvva89EkKTb0RFIREUhETupKW86ZBXX/AJOvTauRxitk5t9NGT0jjj6HQ/M7bj67WkUNwrLTWwXS3VD4KqjkbPBK06LHtOwQu4c78MZRNldZmOLWqa50dzImqIaZvilgm0A4+Du5rtbBG9EkHyWj4bwjnuWXWGkqcfrbXQF495rKyEwtjj39rwh2i92uwA799BLfmgs9XEsdwddrLb7q+MMdW0kNSWj4S9gcR/JXtWOmpoaOmho6ZnghgjbFG30Y0AAfwAsiJiIikKAzbN7DgNjkv1/nc2MO+jhhjG5aiQjYYweZ8yewHUqfPRU99obLajJORay2iUmisR9xgZvp4xoyv+Zd0+TQrrlunryj2leRL1Uv+pJ4LFSb/wAcdPG2SXX5pHg9f0gBRtp9oPla11DZpsk+smA/airqdkjXD02AHD9iucItPmM91c7inmSy8mQPpHQi33qnZ45qIv8AE17Oxkid8TfUHqN9djquhKgOOZBcMVvtDkdrkLKm3zNnZr4gPvNP+nN20j0Kvvb66C52+ludKdw1kEdRH+l7Q4f8KFmjl2zoiLhPo7j5qiHIvXkDJifxer/tciLuPRy411ERaMw9j8le/jkk8f4zv8IpP6moiOR4dbCiIgb/2Q==';
 
   fetch(baseURL + "messages", {
     method: 'POST',
