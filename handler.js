@@ -1,8 +1,8 @@
 let username = localStorage.getItem('username') || 'Anonymous';
 let image = "";
 
-let baseURL = "https://brocodev.pythonanywhere.com/"
-// let baseURL = "http://localhost:5000/"
+// let baseURL = "https://brocodev.pythonanywhere.com/"
+let baseURL = "http://localhost:5000/"
 
 var messageLength;
 var previousMessageLength = 0;
@@ -24,8 +24,7 @@ async function fetchMessages() {
     messageLength = messages.length;
 
     if (messageLength > previousMessageLength) {
-      messagesDiv.innerHTML = '';
-      for (let i = 0; i < messageLength; i++) {
+      for (let i = previousMessageLength; i < messageLength; i++) {
         const message = messages[i]
 
         const containerDiv = document.createElement('div');
@@ -101,7 +100,7 @@ function scrollDown() {
   const callback = function (mutationsList, observer) {
     for (let mutation of mutationsList) {
       if (mutation.type === "childList") {
-        window.scrollBy(0, 4);
+        window.scrollBy(0, 90);
       }
     }
 
@@ -257,28 +256,32 @@ document.getElementById('imageInput').addEventListener('change', handleImageSele
             const base64Image = e.target.result;
             console.log('Original Base64 Image:', base64Image);
 
-
+            // Create an image element
             const img = document.createElement('img');
 
+            // Set the source of the image to the base64 data
             img.src = base64Image;
 
+            // Once the image has loaded, resize it and convert to base64
             img.onload = function() {
                 const canvas = document.createElement('canvas');
                 const ctx = canvas.getContext('2d');
 
-                canvas.width = img.width;
-                canvas.height = img.height;
+                // Set canvas dimensions to 50% of the original image dimensions
+                canvas.width = img.width * 0.25;
+                canvas.height = img.height * 0.25;
 
-                ctx.drawImage(img, 0, 0, img.width, img.height);
+                // Draw the resized image onto the canvas
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-                const compressedBase64 = canvas.toDataURL('image/jpeg', 0.1);
-                
-                image = compressedBase64;
+                // Get the resized base64 data
+                const resizedBase64 = canvas.toDataURL('image/jpeg', 0.3);
 
-                console.log('Compressed Base64 Image:', compressedBase64);
+                console.log('Resized Base64 Image:', resizedBase64);
+                image = resizedBase64;
 
-                img.src = compressedBase64;
-
+        
+                // Update or append the resized image to your HTML
                 const imported = document.getElementById("imported");
                 imported.innerHTML = '';
                 imported.appendChild(img);
@@ -287,6 +290,7 @@ document.getElementById('imageInput').addEventListener('change', handleImageSele
         reader.readAsDataURL(file);
     }
 }
+
 
 
 
