@@ -17,6 +17,7 @@
             padding: 0;
             overflow-x: hidden;
             overflow-y: hidden;
+            background-color: black;
         }
         iframe {
             width: 100%;
@@ -27,11 +28,17 @@
     </style>
 </head>
 <body>
+    
     <canvas id="gradient-canvas"></canvas>
+
     <div class="navbar">
+      <div id="imported"></div>
         <div class="field">
             <input type="text" id="messageInput" placeholder="Join the conversation...">
+            <img class="field-button" src="https://img.icons8.com/ios-glyphs/30/FFFFFF/plus-math.png" id="sendMessageButton" onclick="importImage();"></img>
+            <input type="file" id="imageInput1" style="display: none;" accept="image/*" onchange="convertImportedImage()">
             <img class="field-button" src="https://img.icons8.com/ios-glyphs/30/FFFFFF/paper-plane.png" id="sendMessageButton" onclick="postMessage();"></img>
+           
           </div>
         <div class="vstack">
           <img class="selected-navbar-image" onClick="switchPage('home.html', this)" width="90" height="90" src="https://img.icons8.com/ios-glyphs/90/FFFFFF/home-page--v1.png" alt="home-page--v1" />
@@ -42,7 +49,7 @@
           <!-- <h1 class="navbar-title">Explore</h1> -->
         </div>
       </div>
-    <iframe id="myIFrame" src="home.html"></iframe>
+    <iframe id="myIFrame" src="/home.html"></iframe>
     <script src="background.js"></script>
     <script src="handler.js"></script>
     <script>

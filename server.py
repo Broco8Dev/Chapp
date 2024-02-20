@@ -20,7 +20,7 @@ def get_images():
 def add_message():
     data = request.json
     message = data.get('message')
-    profile_picture = data.get('profile_picture')
+    profile_picture = data.get('profile_picture')  # Add this line to get the profile picture from the request
 
     if message and profile_picture:
         messages.append(message)
