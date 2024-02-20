@@ -1,8 +1,8 @@
 let username = localStorage.getItem('username') || 'Anonymous';
 let image = "";
 
-// let baseURL = "https://brocodev.pythonanywhere.com/"
-let baseURL = "http://localhost:5000/"
+let baseURL = "https://brocodev.pythonanywhere.com/"
+// let baseURL = "http://localhost:5000/"
 
 var messageLength;
 var previousMessageLength = 0;
