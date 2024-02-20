@@ -2,6 +2,7 @@ let username = localStorage.getItem('username') || 'Anonymous';
 let image = "";
 
 let baseURL = "https://brocodev.pythonanywhere.com/"
+// let baseURL = "http://localhost:5000/"
 
 var messageLength;
 var previousMessageLength = 0;
@@ -162,6 +163,7 @@ function postMessage() {
   const input = document.getElementById('imageInput1');
   const imported = document.getElementById("imported");
   imported.innerHTML = '';
+  image = "";
   messageInput.value = "";
 
   const profilePicture = localStorage.getItem('resizedProfilePicture') || 'DEFAULT_PFP';
@@ -253,28 +255,39 @@ document.getElementById('imageInput').addEventListener('change', handleImageSele
         const reader = new FileReader();
         reader.onload = function (e) {
             const base64Image = e.target.result;
-            console.log('Base64 Image:', base64Image);
-            image = base64Image;
+            console.log('Original Base64 Image:', base64Image);
 
-            // Create an img element
+
             const img = document.createElement('img');
 
-            // Set the src attribute after the onload event
-            img.onload = function() {
-                img.className = "importedImage"
+            img.src = base64Image;
 
-                // Get the 'imported' element and append the img element to it
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+
+                canvas.width = img.width;
+                canvas.height = img.height;
+
+                ctx.drawImage(img, 0, 0, img.width, img.height);
+
+                const compressedBase64 = canvas.toDataURL('image/jpeg', 0.1);
+                
+                image = compressedBase64;
+
+                console.log('Compressed Base64 Image:', compressedBase64);
+
+                img.src = compressedBase64;
+
                 const imported = document.getElementById("imported");
                 imported.innerHTML = '';
                 imported.appendChild(img);
             };
-
-            // Set the src attribute to trigger the onload event
-            img.src = base64Image;
         };
         reader.readAsDataURL(file);
     }
 }
+
 
 
 
